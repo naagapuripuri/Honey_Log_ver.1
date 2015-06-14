@@ -48,6 +48,8 @@ public class RSSReaderActivity extends ListActivity {
 
 
 
+
+
     // MENUボタンを押したときの処理
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,7 +76,6 @@ public class RSSReaderActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
 /*
 public class RSSReaderActivity extends ActionBarActivity {
