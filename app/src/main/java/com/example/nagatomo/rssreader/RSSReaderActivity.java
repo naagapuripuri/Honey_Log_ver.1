@@ -1,6 +1,5 @@
 package com.example.nagatomo.rssreader;
 
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +11,6 @@ import android.content.Intent;
 
 public class RSSReaderActivity extends ListActivity {
    // private static final String RSS_FEED_URL = "http://itpro.nikkeibp.co.jp/rss/ITpro.rdf";
-
     private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/trend.xml ";
    // private static final String RSS_FEED_URL = "http://b.hatena.ne.jp/hotentry.rss";
     public static final int MENU_ITEM_RELOAD = Menu.FIRST;
