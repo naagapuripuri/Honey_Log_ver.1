@@ -14,9 +14,7 @@ public class Item {
         public CharSequence getDescription() {
             return mDescription;
         }
-        public void setDescription(CharSequence description) {
-            mDescription = description;
-        }
+        public void setDescription(CharSequence description) {mDescription = description;}
         public CharSequence getTitle() {
             return mTitle;
         }

@@ -10,9 +10,9 @@ import android.view.View;
 import android.content.Intent;
 
 public class RSSReaderActivity extends ListActivity {
-   // private static final String RSS_FEED_URL = "http://itpro.nikkeibp.co.jp/rss/ITpro.rdf";
-    private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/trend.xml ";
-   // private static final String RSS_FEED_URL = "http://b.hatena.ne.jp/hotentry.rss";
+    //  private static final String RSS_FEED_URL = "http://itpro.nikkeibp.co.jp/rss/ITpro.rdf";
+    private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/love.xml ";
+    // private static final String RSS_FEED_URL = "http://b.hatena.ne.jp/hotentry.rss";
     public static final int MENU_ITEM_RELOAD = Menu.FIRST;
     private RSSListAdapter mAdapter;
     private ArrayList<Item> mItems;
@@ -43,13 +43,12 @@ public class RSSReaderActivity extends ListActivity {
     }
 
 
-
-   //////////////////////////////////////////////////////////////////////////////
-
+    //////////////////////////////////////////////////////////////////////////////
 
 
 
 
+/*
     // MENUボタンを押したときの処理
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,6 +75,8 @@ public class RSSReaderActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+}*/
+
 }
 /*
 public class RSSReaderActivity extends ActionBarActivity {
