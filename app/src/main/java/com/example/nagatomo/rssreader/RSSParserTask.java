@@ -1,19 +1,13 @@
 package com.example.nagatomo.rssreader;
 
-/**
- * Created by Nagatomo on 2015/06/13.
- */
 import android.os.AsyncTask;
 import android.app.ProgressDialog;
 import java.net.URL;
 import java.io.InputStream;
 import java.io.IOException;
 import android.util.Xml;
-import android.widget.ListView;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-
-
 
 public class RSSParserTask extends AsyncTask<String, Integer, RSSListAdapter> {
     private RSSReaderActivity mActivity;

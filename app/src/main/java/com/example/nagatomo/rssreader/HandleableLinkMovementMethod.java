@@ -1,9 +1,5 @@
 package com.example.nagatomo.rssreader;
 
-/**
- * Created by Nagatomo on 2015/06/15.
- */
-
 import android.net.Uri;
 import android.text.Layout;
 import android.text.Selection;

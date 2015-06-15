@@ -1,7 +1,5 @@
 package com.example.nagatomo.rssreader;
-/**
- * Created by Nagatomo on 2015/06/13.
- */
+
 import android.app.Activity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
@@ -15,7 +13,6 @@ import android.graphics.Color;
 import com.example.nagatomo.rssreader.HandleableLinkMovementMethod.OnUrlClickListener;
 import android.net.Uri;
 import android.view.View;
-import android.widget.LinearLayout;
 
 public class ItemDetailActivity extends Activity {
     private TextView mTitle;
@@ -54,15 +51,8 @@ public class ItemDetailActivity extends Activity {
         });
         mDescr.setMovementMethod(linkMethod);
         mDescr.setText(cs2);
-
-/*
-        MovementMethod mMethod = LinkMovementMethod.getInstance();
+/*      MovementMethod mMethod = LinkMovementMethod.getInstance();
         mDescr.setMovementMethod(mMethod);
-        mDescr.setText(cs2);
-
-*/
-
-
-
+        mDescr.setText(cs2);*/
     }
 }
