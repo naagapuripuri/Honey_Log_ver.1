@@ -39,6 +39,7 @@ public class RSSReaderActivity extends ListActivity {
         Intent intent = new Intent(this, ItemDetailActivity.class);
         intent.putExtra("TITLE", item.getTitle());//第一引数key、第二引数渡したい値
         intent.putExtra("DESCRIPTION", item.getDescription());
+        intent.putExtra("PUBDATE", item.getPubDate());
         startActivity(intent);
     }
 

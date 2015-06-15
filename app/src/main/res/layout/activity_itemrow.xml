@@ -18,4 +18,10 @@
         android:layout_height="wrap_content"
         android:lines="2"
         android:ellipsize="end" />
+    <TextView
+        android:id="@+id/item_pubdate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:ellipsize="end" />
 </LinearLayout>

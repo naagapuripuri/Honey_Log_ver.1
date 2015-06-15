@@ -79,6 +79,9 @@ public class RSSParserTask extends AsyncTask<String, Integer, RSSListAdapter> {
                             } else if (tag.equals("description")) {
                                 currentItem.setDescription(parser.nextText());
                             }
+                            else if (tag.equals("pubDate")) {
+                                currentItem.setPubDate(parser.nextText());
+                            }
                         }
                         break;
                     case XmlPullParser.END_TAG:

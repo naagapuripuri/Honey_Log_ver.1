@@ -15,6 +15,7 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
     private LayoutInflater mInflater;
     private TextView mTitle;
     private TextView mDescr;
+    private TextView mPubDate;
     //コンストラクタ
     public RSSListAdapter(Context context, List<Item> objects) {//ArrayAdapter クラスのコンストラクターで、使わない引数（textViewResourceId）の分を除いたコンストラクターを作っておく。基本的に、オブジェクトのリストか、オブジェクトの配列を受け取れるようにすればよい。
         super(context, 0, objects);// 第2引数はtextViewResourceIdとされていますが、カスタムリストアイテムを使用する場合は特に意識する必要のない引数です。ArrayAdapter クラスのコンストラクターを呼び出す。このとき、textViewResourceId は指定されていないので、0 にしておく。
@@ -40,6 +41,11 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
             String descr = item.getDescription().toString();//インスタンスに格納されたデータを文字列表現にする。
             mDescr = (TextView) view.findViewById(R.id.item_descr);//findViewByIdでリソースIDに対応するビューのオブジェクトを取得する
          //   mDescr.setText(descr);//変数descrを、mDescrオブジェクトのsetTextメソッドに渡して何かしらの結果を返す
+            String pubdate = item.getPubDate().toString();
+            mTitle = (TextView) view.findViewById(R.id.item_pubdate);
+            mTitle.setText(pubdate);
+            mTitle.setTextSize(8.0f);
+            mTitle.setTextColor(Color.parseColor("magenta"));
         }
         return view;//viewを返す
     }
