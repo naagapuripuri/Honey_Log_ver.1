@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import android.widget.ListView;
 import android.view.View;
 import android.content.Intent;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.AdapterView;
+import android.widget.Toast;
+import android.app.AlertDialog;
+import android.widget.Button;
+import android.content.DialogInterface;
+import android.view.View.OnClickListener;
 
 public class RSSReaderActivity extends ListActivity {
     //  private static final String RSS_FEED_URL = "http://itpro.nikkeibp.co.jp/rss/ITpro.rdf";
@@ -16,6 +24,12 @@ public class RSSReaderActivity extends ListActivity {
     public static final int MENU_ITEM_RELOAD = Menu.FIRST;
     private RSSListAdapter mAdapter;
     private ArrayList<Item> mItems;
+    private String[] mStrings = { "test1", "test2", "test3", "test4" };
+    private Spinner spinner2;
+    protected AlertDialog alertDialog;
+    protected Button spinnerButton;
+    protected ArrayAdapter<String> adapter;
+    protected int selectedIndex = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,7 +43,86 @@ public class RSSReaderActivity extends ListActivity {
         // タスクを起動する
         RSSParserTask task = new RSSParserTask(this, mAdapter);
         task.execute(RSS_FEED_URL);   //AsyncTaskはインスタンスのexecuteメソッドでバックグラウンド処理を開始します。
+
+
+
+
+
+
+
+        spinnerButton = (Button) findViewById(R.id.button);
+        spinnerButton.setText("選択してください");
+        spinnerButton.setOnClickListener(onClickListener);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_single_choice);
+        adapter.add("ねずみ");
+        adapter.add("うし");
+        adapter.add("とら");
+        adapter.add("うさぎ");
+        adapter.add("りゅう");
+
+/*
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mStrings);
+       // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setPrompt("test一覧");
+        spinner2.setAdapter(adapter);
+    //    adapter.add("国内");
+    //    adapter.add("海外");
+    //    adapter.add("IT/経済");
+    //    adapter.add("芸能");
+    //    adapter.add("スポーツ");
+    //    adapter.add("映画");
+        spinner2.setSelection(0);
+       // spinner2.setSelection(2);
+       // spinner2.setPrompt("category");
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            //Itemが選択された時
+            public void onItemSelected(AdapterView parent,
+                                       View view, int position, long id) {
+                //parentのspinnerを指定
+                Spinner spinner2 = (Spinner) parent;
+                //選択されたitemを取得
+                String item = (String) spinner2.getSelectedItem();
+                //Toast表示
+                Toast.makeText(RSSReaderActivity.this,
+                        String.format("%sが選択されました。", item),
+                        Toast.LENGTH_SHORT).show();
+            }
+            //何も選択されなかったとき
+            public void onNothingSelected(AdapterView parent) {
+                Toast.makeText(RSSReaderActivity.this,
+                        "何も選択されませんでした", Toast.LENGTH_SHORT).show();
+            }
+        });
+*/
     }
+    private OnClickListener onClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            // AlertDialogで選択肢を表示
+            AlertDialog.Builder builder = new AlertDialog.Builder(
+                    RSSReaderActivity.this);
+            builder.setTitle("選択してください");
+            builder.setSingleChoiceItems(adapter, selectedIndex, onDialogClickListener);
+            alertDialog = builder.create();
+            alertDialog.show();
+        }
+    };
+    private DialogInterface.OnClickListener onDialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            // AlertDialogで選択された内容を保持
+            selectedIndex = which;
+            spinnerButton.setText(adapter.getItem(which));
+            alertDialog.dismiss();
+        }
+    };
+
+
+
+
 
     // リストの項目を選択した時の処理
     @Override

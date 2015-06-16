@@ -1,7 +1,5 @@
 package com.example.nagatomo.rssreader;
-/**
- * Created by Nagatomo on 2015/06/13.
- */
+
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
@@ -45,6 +43,7 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
             mDescr.setText(descr);//変数descrを、mDescrオブジェクトのsetTextメソッドに渡して何かしらの結果を返す
             mDescr.setVisibility(View.GONE);
             String pubdate = item.getPubDate().toString();
+            pubdate = pubdate.replaceAll("0900", "");
             mPubDate = (TextView) view.findViewById(R.id.item_pubdate);
             mPubDate.setText(pubdate);
             mPubDate.setTextSize(8);
