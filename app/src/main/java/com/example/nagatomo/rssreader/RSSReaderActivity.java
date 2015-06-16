@@ -51,15 +51,19 @@ public class RSSReaderActivity extends ListActivity {
 
 
         spinnerButton = (Button) findViewById(R.id.button);
-        spinnerButton.setText("選択してください");
+        spinnerButton.setText("category");
         spinnerButton.setOnClickListener(onClickListener);
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_single_choice);
-        adapter.add("ねずみ");
-        adapter.add("うし");
-        adapter.add("とら");
-        adapter.add("うさぎ");
-        adapter.add("りゅう");
+        adapter.add("国内");
+        adapter.add("海外");
+        adapter.add("IT/経済");
+        adapter.add("芸能");
+        adapter.add("スポーツ");
+        adapter.add("映画");
+        adapter.add("グルメ");
+        adapter.add("女子");
+        adapter.add("トレンド");
 
 /*
         spinner2 = (Spinner) findViewById(R.id.spinner2);
@@ -104,7 +108,7 @@ public class RSSReaderActivity extends ListActivity {
             // AlertDialogで選択肢を表示
             AlertDialog.Builder builder = new AlertDialog.Builder(
                     RSSReaderActivity.this);
-            builder.setTitle("選択してください");
+            builder.setTitle("category");
             builder.setSingleChoiceItems(adapter, selectedIndex, onDialogClickListener);
             alertDialog = builder.create();
             alertDialog.show();
@@ -117,6 +121,19 @@ public class RSSReaderActivity extends ListActivity {
             selectedIndex = which;
             spinnerButton.setText(adapter.getItem(which));
             alertDialog.dismiss();
+            if(which == 0){
+                Intent intent = new Intent(getApplicationContext(), RSSReaderJapanActivity.class);
+                startActivity(intent);
+                // SplashActivityを終了する
+                RSSReaderActivity.this.finish();
+            }
+            else if(which == 7){
+                Intent intent = new Intent(getApplicationContext(), RSSReaderGirlsActivity.class);
+                startActivity(intent);
+                // SplashActivityを終了する
+                RSSReaderActivity.this.finish();
+            }
+
         }
     };
 

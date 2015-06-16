@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Rlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:weightSum="1">
+    <!-- リストビュー -->
+
+
+    <ListView
+        android:id="@android:id/list"
+        android:background="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="950px"
+        android:minHeight="100dp"
+        android:layout_weight="0.42"
+        android:layout_above="@+id/footer"
+        android:layout_below="@+id/header" />
+    <!-- リストが空のときに表示 -->
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- <ScrollView
+         android:orientation="horizontal"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent">
+ -->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/hacchin"
+        android:layout_marginBottom="71dp"
+        android:layout_alignBottom="@android:id/list"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <!-- </ScrollView>  -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/footer"
+        android:src="@drawable/footer4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60px"
+        android:id="@+id/header"
+        android:src="@drawable/footer4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="↓category:国内"
+        android:textColor="#ffffff"
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="40px" />
+
+
+</RelativeLayout>
