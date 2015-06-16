@@ -1,22 +1,12 @@
 package com.example.nagatomo.rssreader;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.app.ListActivity;
 import java.util.ArrayList;
 import android.widget.ListView;
 import android.view.View;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.AdapterView;
-import android.widget.Toast;
-import android.app.AlertDialog;
-import android.widget.Button;
-import android.content.DialogInterface;
-import android.view.View.OnClickListener;
-import java.util.ArrayList;
+
 
 public class RSSReaderGirlsActivity extends ListActivity {
     private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/love.xml ";

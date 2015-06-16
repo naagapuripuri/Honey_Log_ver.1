@@ -1,8 +1,6 @@
 package com.example.nagatomo.rssreader;
 
 import android.app.Activity;
-import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.content.Intent;
