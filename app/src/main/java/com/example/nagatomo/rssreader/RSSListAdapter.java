@@ -37,10 +37,13 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
             mTitle = (TextView) view.findViewById(R.id.item_title);
             mTitle.setText(title);
             mTitle.setTextSize(12.0f);
+            mTitle.setHeight(50);
+            mTitle.setMinimumHeight(50);
             mTitle.setTextColor(Color.parseColor("magenta"));
             String descr = item.getDescription().toString();//インスタンスに格納されたデータを文字列表現にする。
             mDescr = (TextView) view.findViewById(R.id.item_descr);//findViewByIdでリソースIDに対応するビューのオブジェクトを取得する
-         //   mDescr.setText(descr);//変数descrを、mDescrオブジェクトのsetTextメソッドに渡して何かしらの結果を返す
+            mDescr.setText(descr);//変数descrを、mDescrオブジェクトのsetTextメソッドに渡して何かしらの結果を返す
+            mDescr.setVisibility(View.GONE);
             String pubdate = item.getPubDate().toString();
             mPubDate = (TextView) view.findViewById(R.id.item_pubdate);
             mPubDate.setText(pubdate);
