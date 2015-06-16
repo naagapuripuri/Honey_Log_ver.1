@@ -7,15 +7,27 @@
     android:weightSum="1">
     <!-- リストビュー -->
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/hachimitsu2"
+        android:layout_marginBottom="87dp"
+        android:layout_above="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="500dp"
         android:minHeight="100dp"
         android:layout_weight="0.42"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="243dp"
+        android:layout_below="@+id/header"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/footer" />
     <!-- リストが空のときに表示 -->
 
     <TextView
@@ -45,16 +57,16 @@
         android:id="@+id/footer"
         android:src="@drawable/footer4"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@android:id/list" />
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/header"
-        android:layout_above="@android:id/list"
         android:src="@drawable/footer4"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
 </RelativeLayout>
