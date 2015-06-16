@@ -10,7 +10,7 @@ import android.content.Intent;
 
 public class RSSReaderActivity extends ListActivity {
     //  private static final String RSS_FEED_URL = "http://itpro.nikkeibp.co.jp/rss/ITpro.rdf";
-    private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/love.xml ";
+    private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/top.xml ";
     // private static final String RSS_FEED_URL = "http://b.hatena.ne.jp/hotentry.rss";
     //private static final String RSS_FEED_URL = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&topic=b";
     public static final int MENU_ITEM_RELOAD = Menu.FIRST;
