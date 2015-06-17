@@ -31,10 +31,10 @@
          android:layout_height="fill_parent">
  -->
     <ImageView
-        android:layout_width="200px"
+        android:layout_width="300px"
         android:layout_height="100dp"
         android:id="@+id/imageView"
-        android:src="@drawable/hacchin"
+        android:src="@drawable/hassan"
         android:layout_above="@+id/footer"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

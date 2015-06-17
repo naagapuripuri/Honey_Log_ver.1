@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ListView;
 import android.view.View;
+import android.view.Gravity;
 import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.app.AlertDialog;
@@ -20,6 +21,7 @@ import android.text.Html;
 import com.example.nagatomo.rssreader.HandleableLinkMovementMethod.OnUrlClickListener;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
+import android.widget.Toast;
 
 public class RSSReaderGirlsActivity extends ListActivity {
     private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/love.xml ";
@@ -83,8 +85,15 @@ public class RSSReaderGirlsActivity extends ListActivity {
                 tv.setVisibility(View.GONE);
                 //  Layout.removeView(mDescr);
                 dialog.dismiss();
+                toastMake(String.valueOf(uri), 180, 30);
             }
         });
         tv.setMovementMethod(linkMethod);
+    }
+
+    private void toastMake(String message, int x, int y){
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER|Gravity.LEFT, x, y);
+        toast.show();
     }
 }
