@@ -17,7 +17,7 @@
         android:minHeight="100dp"
         android:layout_weight="0.42"
         android:layout_above="@+id/footer"
-        android:layout_below="@+id/header" />
+        android:layout_below="@+id/imageView3" />
     <!-- リストが空のときに表示 -->
 
     <TextView
@@ -31,12 +31,11 @@
          android:layout_height="fill_parent">
  -->
     <ImageView
-        android:layout_width="200dp"
+        android:layout_width="300px"
         android:layout_height="100dp"
         android:id="@+id/imageView"
-        android:src="@drawable/hacchin"
-        android:layout_marginBottom="71dp"
-        android:layout_alignBottom="@android:id/list"
+        android:src="@drawable/hassan"
+        android:layout_above="@+id/footer"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
     <!-- </ScrollView>  -->
@@ -62,13 +61,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="↓category:国内"
+        android:text="↓category:女子"
         android:textColor="#ffffff"
         android:id="@+id/textView3"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="40px" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/girl"
+        android:paddingTop="24px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/webview2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

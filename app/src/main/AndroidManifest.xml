@@ -26,6 +26,9 @@
             android:name=".ItemDetailGirlsActivity">
         </activity>
         <activity
+            android:name=".ItemDetailJapanActivity">
+        </activity>
+        <activity
             android:name=".RSSReaderGirlsActivity">
         </activity>
         <activity
