@@ -26,7 +26,8 @@ public class RSSReaderGirlsActivity extends ListActivity {
   //  private static final int DIALOG_ID = 1;
     private RSSListGirlsAdapter mAdapter;
     private ArrayList<Item> mItems;
-
+    private TextView tv;
+    private AlertDialog.Builder builder;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,34 +54,37 @@ public class RSSReaderGirlsActivity extends ListActivity {
 // ボタンをクリックしたときの動作
                     }
                 });*/
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        Item item = mItems.get(position);
-        builder.setTitle(item.getTitle());
-        CharSequence descr = item.getDescription();
+        builder = new AlertDialog.Builder(this);
+        Item items = mItems.get(position);
+        builder.setTitle(items.getTitle());
+        CharSequence descr = items.getDescription();
         String string = (String) descr;
         CharSequence cs1 = Html.fromHtml(string);
-        TextView tv = new TextView(this);
+        tv = new TextView(this);
        // tv.setAutoLinkMask(Linkify.WEB_URLS);
-       // String str = this.getString(R.string.text);
-        tv.setText(cs1);
         ScrollView sv = new ScrollView(this);
         sv.addView(tv);
         builder.setView(sv);
         //builder.setMessage(cs1);
-        builder.show();
-        MovementMethod mMethod = LinkMovementMethod.getInstance();
-        tv.setMovementMethod(mMethod);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+       /// MovementMethod mMethod = LinkMovementMethod.getInstance();
+       /// tv.setMovementMethod(mMethod);
         tv.setText(cs1);
 
-
-
-/*
-        Item item = mItems.get(position);
-        //以下4行で、他のActivity起動時に値を渡す
-        Intent intent = new Intent(this, ItemDetailGirlsActivity.class);
-        intent.putExtra("TITLE", item.getTitle());//第一引数key、第二引数渡したい値
-        intent.putExtra("DESCRIPTION", item.getDescription());
-        intent.putExtra("PUBDATE", item.getPubDate());
-        startActivity(intent);*/
+        HandleableLinkMovementMethod linkMethod = new HandleableLinkMovementMethod();
+        linkMethod.setOnUrlClickListener(new OnUrlClickListener() {
+            @Override
+            public void onUrlClick(Uri uri) {
+                // ここでuriを使ってWebView表示用のIntentを飛ばしたりする
+                WebView webView = (WebView)findViewById(R.id.webview2);
+                webView.setWebViewClient(new WebViewClient());
+                webView.loadUrl(String.valueOf(uri));
+                tv.setVisibility(View.GONE);
+                //  Layout.removeView(mDescr);
+                dialog.dismiss();
+            }
+        });
+        tv.setMovementMethod(linkMethod);
     }
 }

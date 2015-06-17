@@ -51,7 +51,8 @@ public class ItemDetailActivity extends Activity {
         });
         mDescr.setMovementMethod(linkMethod);
         mDescr.setText(cs2);
-/*      MovementMethod mMethod = LinkMovementMethod.getInstance();
+/*      外部ブラウザ
+        MovementMethod mMethod = LinkMovementMethod.getInstance();
         mDescr.setMovementMethod(mMethod);
         mDescr.setText(cs2);*/
     }
