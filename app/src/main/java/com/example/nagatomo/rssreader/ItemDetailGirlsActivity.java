@@ -11,6 +11,8 @@ import android.graphics.Color;
 import com.example.nagatomo.rssreader.HandleableLinkMovementMethod.OnUrlClickListener;
 import android.net.Uri;
 import android.view.View;
+import android.app.AlertDialog;
+import android.view.View.OnClickListener;
 
 public class ItemDetailGirlsActivity extends Activity {
     private TextView mTitle;
