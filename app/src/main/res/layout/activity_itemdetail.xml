@@ -18,10 +18,24 @@
         android:layout_height="wrap_content" />
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="524dp"
+        android:layout_height="469dp"
         android:id="@+id/webview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textViewURL"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/linktext1"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

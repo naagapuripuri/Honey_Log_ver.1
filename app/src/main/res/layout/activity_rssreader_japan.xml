@@ -13,11 +13,10 @@
         android:id="@android:id/list"
         android:background="#ffffff"
         android:layout_width="wrap_content"
-        android:layout_height="950px"
+        android:layout_height="940px"
         android:minHeight="100dp"
         android:layout_weight="0.42"
-        android:layout_above="@+id/footer"
-        android:layout_below="@+id/imageView3" />
+        android:layout_above="@+id/footer" />
     <!-- リストが空のときに表示 -->
 
     <TextView
@@ -61,7 +60,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="↓category:女子"
+        android:text="↓category:国内"
         android:textColor="#ffffff"
         android:id="@+id/textView3"
         android:layout_alignParentTop="true"
@@ -71,12 +70,14 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="600px"
         android:id="@+id/imageView3"
-        android:src="@drawable/girl"
-        android:paddingTop="24px"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:src="@drawable/land1"
+        android:layout_marginBottom="228dp"
+        android:layout_above="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="21px" />
 
     <WebView
         android:layout_width="wrap_content"
