@@ -45,15 +45,17 @@ public class ItemDetailJapanActivity extends Activity {
 
 
 
-//特定のURLに対して、そのtitle、すなわちサイト名のみを抜き出す
+//特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 
         HttpURLConnection http = null;
         InputStream in = null;
         TextView web = (TextView) findViewById(R.id.textViewURL);
+        TextView web2 = (TextView) findViewById(R.id.textViewURL2);
+        TextView web3 = (TextView) findViewById(R.id.textViewURL3);
         try {
             // URLにHTTP接続
-            String s = "https://www.taylorguitars.com/";
+            String s = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=girl";
             URL url = new URL(String.valueOf(s));
             http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("GET");
@@ -71,12 +73,32 @@ public class ItemDetailJapanActivity extends Activity {
                 src += new String(line);
             }
             // HTMLソースを表示
-            int index = src.indexOf("<title>");
-            String src2 =  src.substring(index + 7);
+            int index = src.indexOf("<item><title>");
+            String src2 =  src.substring(index + 13);
             int index2 = src2.indexOf("</title>");
             String src3 =  src2.substring(0, index2);
             //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
             web.setText(src3);
+
+            int index3 = src.indexOf(String.valueOf(src3));
+            String src4 =  src.substring(index3 + 13);
+            int index4 = src4.indexOf("<item><title>");
+            String src5 =  src4.substring(index4 + 13);
+            int index5 = src5.indexOf("</title>");
+            String src6 =  src5.substring(0, index5);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web2.setText(src6);
+
+            int index6 = src.indexOf(String.valueOf(src6));
+            String src7 =  src.substring(index6 + 13);
+            int index7 = src7.indexOf("<item><title>");
+            String src8 =  src7.substring(index7 + 13);
+            int index8 = src8.indexOf("</title>");
+            String src9 =  src8.substring(0, index8);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web3.setText(src9);
+
+
         } catch (Exception e) {
             web.setText(e.toString());
         } finally {

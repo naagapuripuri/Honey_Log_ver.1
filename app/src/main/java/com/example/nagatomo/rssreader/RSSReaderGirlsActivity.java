@@ -4,7 +4,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.app.Dialog;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+
+import android.os.StrictMode;
 import android.text.util.Linkify;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -30,6 +36,7 @@ public class RSSReaderGirlsActivity extends ListActivity {
     private ArrayList<Item> mItems;
     private TextView tv;
     private AlertDialog.Builder builder;
+    private String src3;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +56,8 @@ public class RSSReaderGirlsActivity extends ListActivity {
     // リストの項目を選択した時の処理
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-      /*  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+              /*  AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("start")
                 .setPositiveButton("起動", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -63,17 +71,86 @@ public class RSSReaderGirlsActivity extends ListActivity {
         String string = (String) descr;
         CharSequence cs1 = Html.fromHtml(string);
         tv = new TextView(this);
-       // tv.setAutoLinkMask(Linkify.WEB_URLS);
+        // tv.setAutoLinkMask(Linkify.WEB_URLS);
         ScrollView sv = new ScrollView(this);
         sv.addView(tv);
         builder.setView(sv);
         //builder.setMessage(cs1);
         final AlertDialog dialog = builder.create();
         dialog.show();
-       /// MovementMethod mMethod = LinkMovementMethod.getInstance();
-       /// tv.setMovementMethod(mMethod);
+        /// MovementMethod mMethod = LinkMovementMethod.getInstance();
+        /// tv.setMovementMethod(mMethod);
         tv.setText(cs1);
 
+
+
+/*
+
+        //特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
+
+        HttpURLConnection http = null;
+        InputStream in = null;
+        try {
+            // URLにHTTP接続
+            String s = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=girl";
+            URL url = new URL(String.valueOf(s));
+            http = (HttpURLConnection) url.openConnection();
+            http.setRequestMethod("GET");
+            http.connect();
+            // データを取得
+            in = http.getInputStream();
+
+            String src = new String();
+            byte[] line = new byte[1024];
+            int size;
+            while (true) {
+                size = in.read(line);
+                if (size <= 0)
+                    break;
+                src += new String(line);
+            }
+            // HTMLソースを表示
+            int index = src.indexOf("<item><title>");
+            String src2 =  src.substring(index + 13);
+            int index2 = src2.indexOf("</title>");
+            src3 =  src2.substring(0, index2);
+            //web.setText(src3);
+        } catch (Exception e) {
+            tv.setText(e.toString());
+        } finally {
+            try {
+                if (http != null)
+                    http.disconnect();
+                if (in != null)
+                    in.close();
+            } catch (Exception e) {
+            }
+        }
+
+
+        CharSequence cs2 = src3;
+        CharSequence cs3 = cs1 +src3;
+        tv.setText(cs3);   */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //webViewに飛ばす
         HandleableLinkMovementMethod linkMethod = new HandleableLinkMovementMethod();
         linkMethod.setOnUrlClickListener(new OnUrlClickListener() {
             @Override
