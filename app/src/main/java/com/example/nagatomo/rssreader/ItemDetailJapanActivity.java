@@ -28,6 +28,8 @@ public class ItemDetailJapanActivity extends Activity {
     private TextView mURL2;
     private TextView mURL3;
     private TextView mURL4;
+    private String src3;
+    private String srcurl3;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +49,94 @@ public class ItemDetailJapanActivity extends Activity {
         mTitle.setText(cs1);
         mTitle.setTextColor(Color.parseColor("magenta"));
 
+
+
+
+//特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
+
+        HttpURLConnection http = null;
+        InputStream in = null;
+        TextView web = (TextView) findViewById(R.id.textViewURL);
+        TextView web2 = (TextView) findViewById(R.id.textViewURL2);
+        TextView web3 = (TextView) findViewById(R.id.textViewURL3);
+        try {
+            // URLにHTTP接続
+            String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
+            String s02 = "kagoshima";
+            String s = s01 + s02;
+            URL url = new URL(String.valueOf(s));
+            http = (HttpURLConnection) url.openConnection();
+            http.setRequestMethod("GET");
+            http.connect();
+            // データを取得
+            in = http.getInputStream();
+
+            String src = new String();
+            byte[] line = new byte[1024];
+            int size;
+            while (true) {
+                size = in.read(line);
+                if (size <= 0)
+                    break;
+                src += new String(line);
+            }
+            // HTMLソースを表示
+            int index = src.indexOf("<item><title>");
+            String src2 =  src.substring(index + 13);
+            int index2 = src2.indexOf("</title>");
+            src3 =  src2.substring(0, index2);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web.setText(src3);
+
+            int indexurl = src.indexOf("&amp;url=");
+            String srcurl2 =  src.substring(indexurl + 9);
+            int indexurl2 = srcurl2.indexOf("</link>");
+            srcurl3 =  srcurl2.substring(0, indexurl2);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web2.setText(srcurl3);
+
+
+            int index3 = src.indexOf(String.valueOf(src3));
+            String src4 =  src.substring(index3 + 13);
+            int index4 = src4.indexOf("<item><title>");
+            String src5 =  src4.substring(index4 + 13);
+            int index5 = src5.indexOf("</title>");
+            String src6 =  src5.substring(0, index5);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web3.setText(src6);
+
+    /*        int index6 = src.indexOf(String.valueOf(src6));
+            String src7 =  src.substring(index6 + 13);
+            int index7 = src7.indexOf("<item><title>");
+            String src8 =  src7.substring(index7 + 13);
+            int index8 = src8.indexOf("</title>");
+            String src9 =  src8.substring(0, index8);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web3.setText(src9);
+*/
+
+        } catch (Exception e) {
+            web.setText(e.toString());
+        } finally {
+            try {
+                if (http != null)
+                    http.disconnect();
+                if (in != null)
+                    in.close();
+            } catch (Exception e) {
+            }
+        }
+
+
+
         //関連記事×3作成開始
         String murl2 = intent.getStringExtra("URL2");
-                   //特定の文字列にリンクを付ける、開始
+        //特定の文字列にリンクを付ける、開始
         mURL2 = (TextView) findViewById(R.id.item_detail_url2);
-        mURL2.setText(murl2);
-        Pattern pattern2 = Pattern.compile(murl2);
-        final String strUrl2 = "http://www.techbooster.org/";
+        mURL2.setText(src3);
+        Pattern pattern2 = Pattern.compile(src3);
+        final String strUrl2 = srcurl3;
         Linkify.TransformFilter filter2 = new Linkify.TransformFilter() {
             @Override
             public String transformUrl(Matcher match, String url) {
@@ -61,13 +144,13 @@ public class ItemDetailJapanActivity extends Activity {
             }
         };
         Linkify.addLinks(mURL2, pattern2, strUrl2, null, filter2);
-                  //特定の文字列にリンクを付ける、終了
-                  //以下、繰り返し
+        //特定の文字列にリンクを付ける、終了
+        //以下、繰り返し
         String murl3 = intent.getStringExtra("URL3");
         mURL3 = (TextView) findViewById(R.id.item_detail_url3);
         mURL3.setText(murl3);
         Pattern pattern3 = Pattern.compile(murl3);
-        final String strUrl3 = "http://www.techbooster.org/";
+        final String strUrl3 = "http://www.techbooster.org/" ;
         Linkify.TransformFilter filter3 = new Linkify.TransformFilter() {
             @Override
             public String transformUrl(Matcher match, String url) {
@@ -109,87 +192,6 @@ public class ItemDetailJapanActivity extends Activity {
 
 
 */
-
-
-//特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-
-        HttpURLConnection http = null;
-        InputStream in = null;
-        TextView web = (TextView) findViewById(R.id.textViewURL);
-        TextView web2 = (TextView) findViewById(R.id.textViewURL2);
-        TextView web3 = (TextView) findViewById(R.id.textViewURL3);
-        try {
-            // URLにHTTP接続
-            String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
-            String s02 = "japan";
-            String s = s01 + s02;
-            URL url = new URL(String.valueOf(s));
-            http = (HttpURLConnection) url.openConnection();
-            http.setRequestMethod("GET");
-            http.connect();
-            // データを取得
-            in = http.getInputStream();
-
-            String src = new String();
-            byte[] line = new byte[1024];
-            int size;
-            while (true) {
-                size = in.read(line);
-                if (size <= 0)
-                    break;
-                src += new String(line);
-            }
-            // HTMLソースを表示
-            int index = src.indexOf("<item><title>");
-            String src2 =  src.substring(index + 13);
-            int index2 = src2.indexOf("</title>");
-            String src3 =  src2.substring(0, index2);
-            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
-            web.setText(src3);
-
-            int indexurl = src.indexOf("&amp;url=");
-            String srcurl2 =  src.substring(indexurl + 9);
-            int indexurl2 = srcurl2.indexOf("</link>");
-            String srcurl3 =  srcurl2.substring(0, indexurl2);
-            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
-            web2.setText(srcurl3);
-
-
-            int index3 = src.indexOf(String.valueOf(src3));
-            String src4 =  src.substring(index3 + 13);
-            int index4 = src4.indexOf("<item><title>");
-            String src5 =  src4.substring(index4 + 13);
-            int index5 = src5.indexOf("</title>");
-            String src6 =  src5.substring(0, index5);
-            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
-            web3.setText(src6);
-
-    /*        int index6 = src.indexOf(String.valueOf(src6));
-            String src7 =  src.substring(index6 + 13);
-            int index7 = src7.indexOf("<item><title>");
-            String src8 =  src7.substring(index7 + 13);
-            int index8 = src8.indexOf("</title>");
-            String src9 =  src8.substring(0, index8);
-            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
-            web3.setText(src9);
-*/
-
-        } catch (Exception e) {
-            web.setText(e.toString());
-        } finally {
-            try {
-                if (http != null)
-                    http.disconnect();
-                if (in != null)
-                    in.close();
-            } catch (Exception e) {
-            }
-        }
-
-
-
-
 
 
 
