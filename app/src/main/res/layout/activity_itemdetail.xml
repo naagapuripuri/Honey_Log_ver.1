@@ -16,9 +16,28 @@
         android:id="@+id/item_detail_descr"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/item_detail_url2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/item_detail_url3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/item_detail_url4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hassan2"
+        android:src="@drawable/hassan" />
+
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="409dp"
+        android:layout_height="458dp"
         android:id="@+id/webview"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -27,28 +46,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="textviewurl"
         android:id="@+id/textViewURL"
         android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/linktext1"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="textviewurl2"
         android:id="@+id/textViewURL2"
         android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="textviewurl3"
         android:id="@+id/textViewURL3"
         android:layout_gravity="center_horizontal" />
 

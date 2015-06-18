@@ -2,15 +2,20 @@ package com.example.nagatomo.rssreader;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.app.ListActivity;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.widget.ListView;
 import android.view.View;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.widget.Button;
@@ -49,6 +54,14 @@ public class RSSReaderJapanActivity extends ListActivity {
         intent.putExtra("TITLE", item.getTitle());//第一引数key、第二引数渡したい値
         intent.putExtra("DESCRIPTION", item.getDescription());
         intent.putExtra("PUBDATE", item.getPubDate());
+
+
+        String strUrl2 = "techbooster.org/";
+        String strUrl3 = "techbooster.org/";
+        String strUrl4 = "http://www.techbooster.org/";
+        intent.putExtra("URL2",strUrl2 );
+        intent.putExtra("URL3",strUrl3 );
+        intent.putExtra("URL4",strUrl4 );
         startActivity(intent);
     }
 }

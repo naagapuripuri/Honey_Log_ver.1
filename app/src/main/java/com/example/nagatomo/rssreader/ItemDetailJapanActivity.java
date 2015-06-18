@@ -3,6 +3,7 @@ package com.example.nagatomo.rssreader;
 import android.app.Activity;
 import android.os.StrictMode;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.os.Bundle;
 import android.content.Intent;
 import android.text.Html;
@@ -24,7 +25,9 @@ import java.net.URL;
 public class ItemDetailJapanActivity extends Activity {
     private TextView mTitle;
     private TextView mDescr;
-
+    private TextView mURL2;
+    private TextView mURL3;
+    private TextView mURL4;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,7 @@ public class ItemDetailJapanActivity extends Activity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("TITLE");
         String descr = intent.getStringExtra("DESCRIPTION");
+
         CharSequence cs1 = Html.fromHtml(title);
         CharSequence cs2 = Html.fromHtml(descr);
         mTitle = (TextView) findViewById(R.id.item_detail_title);//findViewByIdでリソースIDに対応するビューのオブジェクトを取得する
@@ -43,6 +47,68 @@ public class ItemDetailJapanActivity extends Activity {
         mTitle.setText(cs1);
         mTitle.setTextColor(Color.parseColor("magenta"));
 
+        //関連記事×3作成開始
+        String murl2 = intent.getStringExtra("URL2");
+                   //特定の文字列にリンクを付ける、開始
+        mURL2 = (TextView) findViewById(R.id.item_detail_url2);
+        mURL2.setText(murl2);
+        Pattern pattern2 = Pattern.compile(murl2);
+        final String strUrl2 = "http://www.techbooster.org/";
+        Linkify.TransformFilter filter2 = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return strUrl2;
+            }
+        };
+        Linkify.addLinks(mURL2, pattern2, strUrl2, null, filter2);
+                  //特定の文字列にリンクを付ける、終了
+                  //以下、繰り返し
+        String murl3 = intent.getStringExtra("URL3");
+        mURL3 = (TextView) findViewById(R.id.item_detail_url3);
+        mURL3.setText(murl3);
+        Pattern pattern3 = Pattern.compile(murl3);
+        final String strUrl3 = "http://www.techbooster.org/";
+        Linkify.TransformFilter filter3 = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return strUrl3;
+            }
+        };
+        Linkify.addLinks(mURL3, pattern3, strUrl3, null, filter3);
+
+        final String strUrl4 = intent.getStringExtra("URL4");
+        String murl4 = "techbooster";
+        mURL4 = (TextView) findViewById(R.id.item_detail_url4);
+        mURL4.setText(murl4);
+        Pattern pattern4 = Pattern.compile(murl4);
+        Linkify.TransformFilter filter4 = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return strUrl4;
+            }
+        };
+        Linkify.addLinks(mURL4, pattern4, strUrl4, null, filter4);
+        //関連記事作成終了
+
+        /*
+
+        //特定の文字列にリンクを付ける
+        TextView text = (TextView)findViewById(R.id.linktext1);
+        text.setText("TechboosterではAndroidを中心に技術解説しています。Techboosterはほぼ毎日更新しています。");
+        Pattern pattern = Pattern.compile("Techbooster");
+        final String strUrl = "http://www.techbooster.org/";
+
+        Linkify.TransformFilter filter = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return strUrl;
+            }
+        };
+
+        Linkify.addLinks(text, pattern, strUrl, null, filter);
+
+
+*/
 
 
 //特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
@@ -55,7 +121,9 @@ public class ItemDetailJapanActivity extends Activity {
         TextView web3 = (TextView) findViewById(R.id.textViewURL3);
         try {
             // URLにHTTP接続
-            String s = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=girl";
+            String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
+            String s02 = "japan";
+            String s = s01 + s02;
             URL url = new URL(String.valueOf(s));
             http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("GET");
@@ -80,6 +148,14 @@ public class ItemDetailJapanActivity extends Activity {
             //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
             web.setText(src3);
 
+            int indexurl = src.indexOf("&amp;url=");
+            String srcurl2 =  src.substring(indexurl + 9);
+            int indexurl2 = srcurl2.indexOf("</link>");
+            String srcurl3 =  srcurl2.substring(0, indexurl2);
+            //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
+            web2.setText(srcurl3);
+
+
             int index3 = src.indexOf(String.valueOf(src3));
             String src4 =  src.substring(index3 + 13);
             int index4 = src4.indexOf("<item><title>");
@@ -87,9 +163,9 @@ public class ItemDetailJapanActivity extends Activity {
             int index5 = src5.indexOf("</title>");
             String src6 =  src5.substring(0, index5);
             //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
-            web2.setText(src6);
+            web3.setText(src6);
 
-            int index6 = src.indexOf(String.valueOf(src6));
+    /*        int index6 = src.indexOf(String.valueOf(src6));
             String src7 =  src.substring(index6 + 13);
             int index7 = src7.indexOf("<item><title>");
             String src8 =  src7.substring(index7 + 13);
@@ -97,7 +173,7 @@ public class ItemDetailJapanActivity extends Activity {
             String src9 =  src8.substring(0, index8);
             //String trans = new String(String.valueOf(src3).getBytes("EUC_JP"), "EUC_JP");
             web3.setText(src9);
-
+*/
 
         } catch (Exception e) {
             web.setText(e.toString());
@@ -110,24 +186,6 @@ public class ItemDetailJapanActivity extends Activity {
             } catch (Exception e) {
             }
         }
-
-
-
-
-        //特定の文字列にリンクを付ける
-        TextView text = (TextView)findViewById(R.id.linktext1);
-        text.setText("TechboosterではAndroidを中心に技術解説しています。Techboosterはほぼ毎日更新しています。");
-        Pattern pattern = Pattern.compile("Techbooster");
-        final String strUrl = "http://www.techbooster.org/";
-
-        Linkify.TransformFilter filter = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return strUrl;
-            }
-        };
-
-        Linkify.addLinks(text, pattern, strUrl, null, filter);
 
 
 
@@ -145,8 +203,14 @@ public class ItemDetailJapanActivity extends Activity {
                 WebView webView = (WebView)findViewById(R.id.webview);
                 webView.setWebViewClient(new WebViewClient());
                 webView.loadUrl(String.valueOf(uri));
+                mTitle.setVisibility(View.GONE);
                 mDescr.setVisibility(View.GONE);
+                mURL2.setVisibility(View.GONE);
+                mURL3.setVisibility(View.GONE);
+                mURL4.setVisibility(View.GONE);
                 //  Layout.removeView(mDescr);
+                ImageView Hassan2 = (ImageView) findViewById(R.id.hassan2);
+                Hassan2.setVisibility(View.GONE);
             }
         });
         mDescr.setMovementMethod(linkMethod);

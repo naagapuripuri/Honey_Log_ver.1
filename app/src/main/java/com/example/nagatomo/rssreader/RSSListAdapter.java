@@ -1,10 +1,14 @@
 package com.example.nagatomo.rssreader;
 
+import android.text.util.Linkify;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
 import android.content.Context;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.graphics.Color;
@@ -14,6 +18,7 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
     private TextView mTitle;
     private TextView mDescr;
     private TextView mPubDate;
+    private TextView text;
     //コンストラクタ
     public RSSListAdapter(Context context, List<Item> objects) {//ArrayAdapter クラスのコンストラクターで、使わない引数（textViewResourceId）の分を除いたコンストラクターを作っておく。基本的に、オブジェクトのリストか、オブジェクトの配列を受け取れるようにすればよい。
         super(context, 0, objects);// 第2引数はtextViewResourceIdとされていますが、カスタムリストアイテムを使用する場合は特に意識する必要のない引数です。ArrayAdapter クラスのコンストラクターを呼び出す。このとき、textViewResourceId は指定されていないので、0 にしておく。
@@ -26,6 +31,7 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
         View view = convertView;
         if (convertView == null) {// ListViewに表示する分のレイアウトが生成されていない場合レイアウトを作成する。convertViewは使い回しされている可能性があるのでnullの時だけ新しく作る。convertViewがnullだった場合のみLayoutInflaterを利用して、activity_itemrow.xmlからビューを取得する
             view = mInflater.inflate(R.layout.activity_itemrow, null);
+
         }
 
         Item item = this.getItem(position);    // position行目のデータを取得する。特定の行(position)のデータを得る// 現在参照しているリストの位置からItemを取得する
@@ -48,8 +54,15 @@ public class RSSListAdapter extends ArrayAdapter<Item> {
             mPubDate.setText(pubdate);
             mPubDate.setTextSize(8);
             mPubDate.setTextColor(Color.parseColor("black"));
+
+
+
         }
         return view;//viewを返す
     }
+
+
+
+
 }
 
