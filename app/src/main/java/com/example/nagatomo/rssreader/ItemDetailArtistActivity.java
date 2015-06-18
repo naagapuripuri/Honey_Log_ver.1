@@ -29,11 +29,12 @@ public class ItemDetailArtistActivity extends Activity {
     private TextView mURL2;
     private TextView mURL3;
     private TextView mURL4;
+    private TextView mURL5;
     private String src0;
     private String src3;
     private String src6;
     private String src9;
-    private String srcurl0;
+    private String src12;
     private String srcurl3;
     private String srcurl6;
     private String srcurl9;
@@ -136,6 +137,21 @@ public class ItemDetailArtistActivity extends Activity {
             int indexurl8 = srcurl8.indexOf("</link>");
             srcurl9 =  srcurl8.substring(0, indexurl8);
 
+            int index9 = src.indexOf(String.valueOf(src9));
+            String src10 =  src.substring(index9 + 13);
+            int index10 = src10.indexOf("<item><title>");
+            String src11 =  src10.substring(index10 + 13);
+            int index11 = src11.indexOf("</title>");
+            src12 =  src11.substring(0, index11);
+
+            int indexurl9 = src.indexOf(String.valueOf(srcurl9));
+            String srcurl10 =  src.substring(indexurl9 + 9);
+            int indexurl10 = srcurl10.indexOf("&amp;url=");
+            String srcurl11 =  srcurl10.substring(indexurl10 + 9);
+            int indexurl11 = srcurl11.indexOf("</link>");
+            srcurl12 =  srcurl11.substring(0, indexurl11);
+
+
 
         } catch (Exception e) {
             web.setText(e.toString());
@@ -156,6 +172,7 @@ public class ItemDetailArtistActivity extends Activity {
         //特定の文字列にリンクを付ける、開始
         mURL2 = (TextView) findViewById(R.id.item_detail_url2);
         mURL2.setText(src3);
+        mURL2.setVisibility(View.GONE);
         Pattern pattern2 = Pattern.compile(src3);
         final String strUrl2 = srcurl3;
         Linkify.TransformFilter filter2 = new Linkify.TransformFilter() {
@@ -191,6 +208,18 @@ public class ItemDetailArtistActivity extends Activity {
             }
         };
         Linkify.addLinks(mURL4, pattern4, strUrl4, null, filter4);
+
+        mURL5 = (TextView) findViewById(R.id.item_detail_url5);
+        mURL5.setText(src12);
+        Pattern pattern5 = Pattern.compile(src12);
+        final String strUrl5 = srcurl12 ;
+        Linkify.TransformFilter filter5 = new Linkify.TransformFilter() {
+            @Override
+            public String transformUrl(Matcher match, String url) {
+                return strUrl5;
+            }
+        };
+        Linkify.addLinks(mURL5, pattern5, strUrl5, null, filter5);
         //関連記事作成終了
 
         /*
