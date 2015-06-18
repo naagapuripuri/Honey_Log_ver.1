@@ -29,10 +29,16 @@
             android:name=".ItemDetailJapanActivity">
         </activity>
         <activity
+            android:name=".ItemDetailArtistActivity">
+        </activity>
+        <activity
             android:name=".RSSReaderGirlsActivity">
         </activity>
         <activity
             android:name=".RSSReaderJapanActivity">
+        </activity>
+        <activity
+            android:name=".RSSReaderArtistActivity">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
