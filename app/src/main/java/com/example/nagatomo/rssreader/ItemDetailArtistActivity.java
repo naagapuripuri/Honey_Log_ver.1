@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 public class ItemDetailArtistActivity extends Activity {
     private TextView mTitle;
     private TextView mDescr;
+    private TextView mURL;
     private TextView mURL2;
     private TextView mURL3;
     private TextView mURL4;
@@ -41,6 +42,9 @@ public class ItemDetailArtistActivity extends Activity {
     private String srcurl12;
     private String titlecut;
     private CharSequence cs1;
+    private String SRC;
+    private String SRCURL;
+   // private String detailtag = "item_detail_url2";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +54,7 @@ public class ItemDetailArtistActivity extends Activity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("TITLE");
         String descr = intent.getStringExtra("DESCRIPTION");
-        titlecut = title.substring(0, 7);
+        titlecut = title.substring(0, 5);
         //   CharSequence cs1 = Html.fromHtml(title);
         cs1 = Html.fromHtml(titlecut);
         CharSequence cs2 = Html.fromHtml(descr);
@@ -70,12 +74,11 @@ public class ItemDetailArtistActivity extends Activity {
         HttpURLConnection http = null;
         InputStream in = null;
         TextView web = (TextView) findViewById(R.id.textViewURL);
-        TextView web2 = (TextView) findViewById(R.id.textViewURL2);
-        TextView web3 = (TextView) findViewById(R.id.textViewURL3);
         try {
             // URLにHTTP接続
             String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
             String s03 = cs1.toString();
+          //  String s03 = (String) cs1;
             String s = s01 + s03;
             URL url = new URL(String.valueOf(s));
             http = (HttpURLConnection) url.openConnection();
@@ -84,7 +87,8 @@ public class ItemDetailArtistActivity extends Activity {
             // データを取得
             in = http.getInputStream();
 
-            String src = new String();
+          //  String src = new String();
+            String src = "";
             byte[] line = new byte[1024];
             int size;
             while (true) {
@@ -93,10 +97,9 @@ public class ItemDetailArtistActivity extends Activity {
                     break;
                 src += new String(line);
             }
+
+
             // HTMLソースを表示
-
-
-
             int index1 = src.indexOf("<item><title>");
             String src2 =  src.substring(index1 + 13);
             int index2 = src2.indexOf("</title>");
@@ -151,7 +154,7 @@ public class ItemDetailArtistActivity extends Activity {
             int indexurl11 = srcurl11.indexOf("</link>");
             srcurl12 =  srcurl11.substring(0, indexurl11);
 
-
+            Link();
 
         } catch (Exception e) {
             web.setText(e.toString());
@@ -167,12 +170,27 @@ public class ItemDetailArtistActivity extends Activity {
 
 
 
+
+
+
+
+
+
+
+
+
+/*******
         //関連記事×3作成開始
-        String murl2 = intent.getStringExtra("URL2");
+       
         //特定の文字列にリンクを付ける、開始
-        mURL2 = (TextView) findViewById(R.id.item_detail_url2);
+        String detail = "item_detail_url";
+        int num = 2;
+        String number = String.valueOf(num);
+        String detailtag = detail +number ;
+
+        mURL2 = (TextView) findViewById(getResources().getIdentifier(detailtag, "id", getPackageName()));
         mURL2.setText(src3);
-        mURL2.setVisibility(View.GONE);
+     //   mURL2.setVisibility(View.GONE);
         Pattern pattern2 = Pattern.compile(src3);
         final String strUrl2 = srcurl3;
         Linkify.TransformFilter filter2 = new Linkify.TransformFilter() {
@@ -184,7 +202,7 @@ public class ItemDetailArtistActivity extends Activity {
         Linkify.addLinks(mURL2, pattern2, strUrl2, null, filter2);
         //特定の文字列にリンクを付ける、終了
         //以下、繰り返し
-        String murl3 = intent.getStringExtra("URL3");
+
         mURL3 = (TextView) findViewById(R.id.item_detail_url3);
         mURL3.setText(src6);
         Pattern pattern3 = Pattern.compile(src6);
@@ -221,7 +239,7 @@ public class ItemDetailArtistActivity extends Activity {
         };
         Linkify.addLinks(mURL5, pattern5, strUrl5, null, filter5);
         //関連記事作成終了
-
+*//////////
         /*
 
         //特定の文字列にリンクを付ける
@@ -276,5 +294,58 @@ public class ItemDetailArtistActivity extends Activity {
 
 
 
+    }
+
+
+
+
+
+
+    public void Link(){
+        int i ;
+        for(i=0 ; i<3 ;i++) {
+            String detail = "item_detail_url";
+            int num = i + 2;
+            String number = String.valueOf(num);
+            String detailtag = detail + number;
+            mURL = (TextView) findViewById(getResources().getIdentifier(detailtag, "id", getPackageName()));
+
+            //String detail2 = "src";
+            //int num2 = 3*(i+1);
+            //String number2 = String.valueOf(num2);
+            //String detailtag2 = detail2 + number2;
+
+            if(i == 0){
+                SRC = src3;
+                SRCURL = srcurl3;
+                mURL.setText(SRC);
+            };
+            if(i == 1){
+                SRC = src6;
+                SRCURL = srcurl6;
+                mURL.setText(SRC);
+            };
+            if(i == 2){
+                SRC = src9;
+                SRCURL = srcurl9;
+                mURL.setText(SRC);
+            };
+            Pattern pattern = Pattern.compile(SRC);
+            final String strUrl = SRCURL;
+            Linkify.TransformFilter filter = new Linkify.TransformFilter() {
+                @Override
+                public String transformUrl(Matcher match, String url) {
+                    return strUrl;
+                }
+            };
+            Linkify.addLinks(mURL, pattern, strUrl, null, filter);
+
+           // String detail3 = "srcurl";
+           // String number3 = String.valueOf(num2);
+           // String detailtag3 = detail3 + number3;
+
+
+
+        }
     }
 }
