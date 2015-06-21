@@ -19,19 +19,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.net.URLEncoder;
 
-/**
- * Created by Nagatomo on 2015/06/18.
- */
 public class ItemDetailArtistActivity extends Activity {
     private TextView mTitle;
     private TextView mDescr;
     private TextView mURL;
-    private TextView mURL2;
-    private TextView mURL3;
-    private TextView mURL4;
-    private TextView mURL5;
-    private String src0;
     private String src3;
     private String src6;
     private String src9;
@@ -44,7 +37,6 @@ public class ItemDetailArtistActivity extends Activity {
     private CharSequence cs1;
     private String SRC;
     private String SRCURL;
-   // private String detailtag = "item_detail_url2";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +69,11 @@ public class ItemDetailArtistActivity extends Activity {
         try {
             // URLにHTTP接続
             String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
-            String s03 = cs1.toString();
-          //  String s03 = (String) cs1;
+            String s02 = cs1.toString();
+            String s03 =URLEncoder.encode(s02, "UTF-8");
+          //  String s02 = (String) cs1;
             String s = s01 + s03;
+
             URL url = new URL(String.valueOf(s));
             http = (HttpURLConnection) url.openConnection();
             http.setRequestMethod("GET");
@@ -274,36 +268,34 @@ public class ItemDetailArtistActivity extends Activity {
                 webView.loadUrl(String.valueOf(uri));
                 mTitle.setVisibility(View.GONE);
                 mDescr.setVisibility(View.GONE);
+      //          mURL2.setVisibility(View.GONE);
+      //          mURL3.setVisibility(View.GONE);
+      //          mURL4.setVisibility(View.GONE);
+                ImageView Hassan2 = (ImageView) findViewById(R.id.hassan2);
+                Hassan2.setVisibility(View.GONE);
+
+                TextView mURL2 = (TextView) findViewById(R.id.item_detail_url2);
+                TextView mURL3 = (TextView) findViewById(R.id.item_detail_url3);
+                TextView mURL4 = (TextView) findViewById(R.id.item_detail_url4);
+                TextView mURL5 = (TextView) findViewById(R.id.item_detail_url5);
                 mURL2.setVisibility(View.GONE);
                 mURL3.setVisibility(View.GONE);
                 mURL4.setVisibility(View.GONE);
-                //  Layout.removeView(mDescr);
-                ImageView Hassan2 = (ImageView) findViewById(R.id.hassan2);
-                Hassan2.setVisibility(View.GONE);
+                mURL5.setVisibility(View.GONE);
             }
         });
         mDescr.setMovementMethod(linkMethod);
         mDescr.setText(cs2);
-/*      MovementMethod mMethod = LinkMovementMethod.getInstance();
-        mDescr.setMovementMethod(mMethod);
-        mDescr.setText(cs2);*/
-
-
-
-
-
-
-
     }
 
 
 
 
-
-
+    //関連記事×3作成開始
+    //特定の文字列にリンクを付ける、開始
     public void Link(){
         int i ;
-        for(i=0 ; i<3 ;i++) {
+        for(i=0 ; i<4 ;i++) {
             String detail = "item_detail_url";
             int num = i + 2;
             String number = String.valueOf(num);
@@ -328,6 +320,11 @@ public class ItemDetailArtistActivity extends Activity {
             if(i == 2){
                 SRC = src9;
                 SRCURL = srcurl9;
+                mURL.setText(SRC);
+            };
+            if(i == 3){
+                SRC = src12;
+                SRCURL = srcurl12;
                 mURL.setText(SRC);
             };
             Pattern pattern = Pattern.compile(SRC);

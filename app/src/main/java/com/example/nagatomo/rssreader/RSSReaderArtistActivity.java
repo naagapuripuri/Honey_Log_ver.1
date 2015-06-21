@@ -14,14 +14,20 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.nagatomo.rssreader.HandleableLinkMovementMethod.OnUrlClickListener;
 import java.util.ArrayList;
+import android.app.AlertDialog;
+import android.widget.TextView;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+
 
 public class RSSReaderArtistActivity extends ListActivity {
     private static final String RSS_FEED_URL = "http://news.livedoor.com/topics/rss/ent.xml ";
     private RSSListArtistAdapter mAdapter;
     private ArrayList<Item> mItems;
-
+    private TextView tv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,4 +65,7 @@ public class RSSReaderArtistActivity extends ListActivity {
         intent.putExtra("URL4", strUrl4);
         startActivity(intent);
     }
+
+
+
 }

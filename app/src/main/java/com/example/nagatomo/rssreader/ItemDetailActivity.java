@@ -3,6 +3,7 @@ package com.example.nagatomo.rssreader;
 import android.app.Activity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.content.Intent;
@@ -47,6 +48,8 @@ public class ItemDetailActivity extends Activity {
                 webView.loadUrl(String.valueOf(uri));
                 mDescr.setVisibility(View.GONE);
               //  Layout.removeView(mDescr);
+                ImageView Hassan2 = (ImageView) findViewById(R.id.hassan2);
+                Hassan2.setVisibility(View.GONE);
             }
         });
         mDescr.setMovementMethod(linkMethod);
