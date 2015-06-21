@@ -17,11 +17,12 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.net.URLEncoder;
 
-public class ItemDetailArtistActivity extends Activity {
+public class ItemDetailGourmetActivity extends Activity {
     private TextView mTitle;
     private TextView mDescr;
     private TextView mURL;
@@ -47,13 +48,11 @@ public class ItemDetailArtistActivity extends Activity {
         String title = intent.getStringExtra("TITLE");
         String descr = intent.getStringExtra("DESCRIPTION");
         titlecut = title.substring(0, 5);
-        //   CharSequence cs1 = Html.fromHtml(title);
         cs1 = Html.fromHtml(titlecut);
         CharSequence cs2 = Html.fromHtml(descr);
         mTitle = (TextView) findViewById(R.id.item_detail_title);//findViewByIdでリソースIDに対応するビューのオブジェクトを取得する
         // mTitle.setText(title);  //変数titleを、mTitleオブジェクトのsetTextメソッドに渡して何かしらの結果を返す
         mDescr = (TextView) findViewById(R.id.item_detail_descr);
-        //  mDescr.setText(descr);
         mTitle.setText(cs1);
         mTitle.setTextColor(Color.parseColor("magenta"));
 
@@ -70,29 +69,42 @@ public class ItemDetailArtistActivity extends Activity {
             // URLにHTTP接続
             String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
             String s02 = cs1.toString();
-            String s03 =URLEncoder.encode(s02, "UTF-8");
-          //  String s02 = (String) cs1;
+            String s03 = URLEncoder.encode(s02, "UTF-8");
             String s = s01 + s03;
+            /*Javaの変数のデータ型には参照型(配列型,クラス型,interface型)と基本(プリミティブ)型(byte，short，int，long，float， double，char，boolean)のデータがある。
+            基本データ型には変数に値そのものが格納される.
+            参照型の場合は、値の実体(インスタンス)が格納されているメモリー位置を指し示す（参照する）値が格納されてる
+            つまり、参照型変数にはデータそのものではなく、実データの格納先（参照先）を示す値が入っている
+            インスタンスを生成すると、インスタンスを操作するための「参照」というものも一緒についてくる。
+            逆に言えば、参照は「インスタンス」を作らないと取得することができない。
+　　　　　　　この参照を、参照型変数に代入する。これによって参照型変数はインスタンスを操作できる。
+            結局、クラスを使うためには「インスタンス」というものを作る必要がある。
+            参照型にnullを代入すると、参照型の変数は何もオブジェクトを参照していない事を示す、つまり変数は「何も指していない」値に初期化されている。
+            初期値が代入されていないという事は、null値も代入されていない。一点、「未定義値」と「null値」は異なる。
+            「コンパイルエラー」と「実行時エラー」も異なるものである。
 
-            URL url = new URL(String.valueOf(s));
-            http = (HttpURLConnection) url.openConnection();
-            http.setRequestMethod("GET");
-            http.connect();
-            // データを取得
-            in = http.getInputStream();
+            */
+//URL で指定されたコンテンツを HTTP で取得する大まかな流れは以下
+            URL url ;                                          //クラスの参照型変数の宣言
+            url = new URL(String.valueOf(s));                  //クラスのインスタンスを生成し、その参照を参照型変数に入れる。URL オブジェクトを生成する。
+            http = (HttpURLConnection) url.openConnection();   //接続用HttpURLConnectionオブジェクト作成。サイトに接続
+            http.setRequestMethod("GET");                      // リクエストメソッドの設定 （デフォルトが GET メソッドなので省略可）。プロトコルの設定
+            http.connect();                                    //接続する．
+            in = http.getInputStream();                        // ネット上のファイルを開く。
 
-          //  String src = new String();
-            String src = "";
-            byte[] line = new byte[1024];
+            String src = "";                                   // InputStreamから取得したbyteデータを文字列にして保持するための変数。初期値として空文字（長さが0の文字列）
+            byte[] line = new byte[1024];                      // InputStreamからbyteデータを取得するための変数
             int size;
-            while (true) {
-                size = in.read(line);
+            while (true) {                                     // while内で、InputStreamからのデータを文字列として取得する
+                size = in.read(line);                          //ネット上のファイルから１バイトのデータが読み取られ、int型の変数にセット
                 if (size <= 0)
                     break;
                 src += new String(line);
             }
 
 
+
+          //
             // HTMLソースを表示
             int index1 = src.indexOf("<item><title>");
             String src2 =  src.substring(index1 + 13);
@@ -106,7 +118,7 @@ public class ItemDetailArtistActivity extends Activity {
             srcurl3 =  srcurl2.substring(0, indexurl2);
 
             int index3 = src.indexOf(String.valueOf(src3));
-            String src4 =  src.substring(index3 + 13);
+            String src4 =  src.substring(index3 + 100);
             int index4 = src4.indexOf("<item><title>");
             String src5 =  src4.substring(index4 + 13);
             int index5 = src5.indexOf("</title>");
@@ -114,35 +126,35 @@ public class ItemDetailArtistActivity extends Activity {
 
 
             int indexurl3 = src.indexOf(String.valueOf(srcurl3));
-            String srcurl4 =  src.substring(indexurl3 + 9);
+            String srcurl4 =  src.substring(indexurl3 + 100);
             int indexurl4 = srcurl4.indexOf("&amp;url=");
             String srcurl5 =  srcurl4.substring(indexurl4 + 9);
             int indexurl5 = srcurl5.indexOf("</link>");
             srcurl6 =  srcurl5.substring(0, indexurl5);
 
             int index6 = src.indexOf(String.valueOf(src6));
-            String src7 =  src.substring(index6 + 13);
+            String src7 =  src.substring(index6 + 100);
             int index7 = src7.indexOf("<item><title>");
             String src8 =  src7.substring(index7 + 13);
             int index8 = src8.indexOf("</title>");
             src9 =  src8.substring(0, index8);
 
             int indexurl6 = src.indexOf(String.valueOf(srcurl6));
-            String srcurl7 =  src.substring(indexurl6 + 9);
+            String srcurl7 =  src.substring(indexurl6 + 100);
             int indexurl7 = srcurl7.indexOf("&amp;url=");
             String srcurl8 =  srcurl7.substring(indexurl7 + 9);
             int indexurl8 = srcurl8.indexOf("</link>");
             srcurl9 =  srcurl8.substring(0, indexurl8);
 
             int index9 = src.indexOf(String.valueOf(src9));
-            String src10 =  src.substring(index9 + 13);
+            String src10 =  src.substring(index9 + 100);
             int index10 = src10.indexOf("<item><title>");
             String src11 =  src10.substring(index10 + 13);
             int index11 = src11.indexOf("</title>");
             src12 =  src11.substring(0, index11);
 
             int indexurl9 = src.indexOf(String.valueOf(srcurl9));
-            String srcurl10 =  src.substring(indexurl9 + 9);
+            String srcurl10 =  src.substring(indexurl9 + 100);
             int indexurl10 = srcurl10.indexOf("&amp;url=");
             String srcurl11 =  srcurl10.substring(indexurl10 + 9);
             int indexurl11 = srcurl11.indexOf("</link>");
@@ -161,99 +173,6 @@ public class ItemDetailArtistActivity extends Activity {
             } catch (Exception e) {
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-/*******
-        //関連記事×3作成開始
-       
-        //特定の文字列にリンクを付ける、開始
-        String detail = "item_detail_url";
-        int num = 2;
-        String number = String.valueOf(num);
-        String detailtag = detail +number ;
-
-        mURL2 = (TextView) findViewById(getResources().getIdentifier(detailtag, "id", getPackageName()));
-        mURL2.setText(src3);
-     //   mURL2.setVisibility(View.GONE);
-        Pattern pattern2 = Pattern.compile(src3);
-        final String strUrl2 = srcurl3;
-        Linkify.TransformFilter filter2 = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return strUrl2;
-            }
-        };
-        Linkify.addLinks(mURL2, pattern2, strUrl2, null, filter2);
-        //特定の文字列にリンクを付ける、終了
-        //以下、繰り返し
-
-        mURL3 = (TextView) findViewById(R.id.item_detail_url3);
-        mURL3.setText(src6);
-        Pattern pattern3 = Pattern.compile(src6);
-        final String strUrl3 = srcurl6 ;
-        Linkify.TransformFilter filter3 = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return strUrl3;
-            }
-        };
-        Linkify.addLinks(mURL3, pattern3, strUrl3, null, filter3);
-
-        mURL4 = (TextView) findViewById(R.id.item_detail_url4);
-        mURL4.setText(src9);
-        Pattern pattern4 = Pattern.compile(src9);
-        final String strUrl4 = srcurl9 ;
-        Linkify.TransformFilter filter4 = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return strUrl4;
-            }
-        };
-        Linkify.addLinks(mURL4, pattern4, strUrl4, null, filter4);
-
-        mURL5 = (TextView) findViewById(R.id.item_detail_url5);
-        mURL5.setText(src12);
-        Pattern pattern5 = Pattern.compile(src12);
-        final String strUrl5 = srcurl12 ;
-        Linkify.TransformFilter filter5 = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return strUrl5;
-            }
-        };
-        Linkify.addLinks(mURL5, pattern5, strUrl5, null, filter5);
-        //関連記事作成終了
-*//////////
-        /*
-
-        //特定の文字列にリンクを付ける
-        TextView text = (TextView)findViewById(R.id.linktext1);
-        text.setText("TechboosterではAndroidを中心に技術解説しています。Techboosterはほぼ毎日更新しています。");
-        Pattern pattern = Pattern.compile("Techbooster");
-        final String strUrl = "http://www.techbooster.org/";
-
-        Linkify.TransformFilter filter = new Linkify.TransformFilter() {
-            @Override
-            public String transformUrl(Matcher match, String url) {
-                return strUrl;
-            }
-        };
-
-        Linkify.addLinks(text, pattern, strUrl, null, filter);
-
-
-*/
-
 
 
 
@@ -297,32 +216,23 @@ public class ItemDetailArtistActivity extends Activity {
             String number = String.valueOf(num);
             String detailtag = detail + number;
             mURL = (TextView) findViewById(getResources().getIdentifier(detailtag, "id", getPackageName()));
-
-            //String detail2 = "src";
-            //int num2 = 3*(i+1);
-            //String number2 = String.valueOf(num2);
-            //String detailtag2 = detail2 + number2;
-
             if(i == 0){
                 SRC = src3;
                 SRCURL = srcurl3;
-                mURL.setText(SRC);
             };
             if(i == 1){
                 SRC = src6;
                 SRCURL = srcurl6;
-                mURL.setText(SRC);
             };
             if(i == 2){
                 SRC = src9;
                 SRCURL = srcurl9;
-                mURL.setText(SRC);
             };
             if(i == 3){
                 SRC = src12;
                 SRCURL = srcurl12;
-                mURL.setText(SRC);
             };
+            mURL.setText(SRC);
             Pattern pattern = Pattern.compile(SRC);
             final String strUrl = SRCURL;
             Linkify.TransformFilter filter = new Linkify.TransformFilter() {
