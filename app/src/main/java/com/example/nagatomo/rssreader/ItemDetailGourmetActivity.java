@@ -57,22 +57,18 @@ public class ItemDetailGourmetActivity extends Activity {
         mTitle.setTextColor(Color.parseColor("magenta"));
 
 
-
-
-//特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 
+        //特定のURLに対して、そのhtmlリソースの欲しい一部をとりにいく
         HttpURLConnection http = null;
         InputStream in = null;
         TextView web = (TextView) findViewById(R.id.textViewURL);
         try {
-            // URLにHTTP接続
             String s01 = "https://news.google.com/news?hl=ja&ned=us&ie=UTF-8&oe=UTF-8&output=rss&q=";
             String s02 = cs1.toString();
             String s03 = URLEncoder.encode(s02, "UTF-8");
             String s = s01 + s03;
-
-//URL で指定されたコンテンツを HTTP で取得する大まかな流れは以下
+            //URL で指定されたコンテンツを HTTP で取得する大まかな流れは以下
             URL url ;                                          //クラスの参照型変数の宣言
             url = new URL(String.valueOf(s));                  //クラスのインスタンスを生成し、その参照を参照型変数に入れる。URL オブジェクトを生成する。
             http = (HttpURLConnection) url.openConnection();   //接続用HttpURLConnectionオブジェクト作成。サイトに接続
@@ -92,8 +88,8 @@ public class ItemDetailGourmetActivity extends Activity {
 
 
 
-          //
-            // HTMLソースを表示
+
+            // HTMLソースの中からタイトル・URLをピックアップしていく
             int index1 = src.indexOf("<item><title>");
             String src2 =  src.substring(index1 + 13);
             int index2 = src2.indexOf("</title>");
@@ -148,7 +144,7 @@ public class ItemDetailGourmetActivity extends Activity {
             int indexurl11 = srcurl11.indexOf("</link>");
             srcurl12 =  srcurl11.substring(0, indexurl11);
 
-          //  Link();
+            Link();
 
         } catch (Exception e) {
             web.setText(e.toString());
@@ -161,8 +157,6 @@ public class ItemDetailGourmetActivity extends Activity {
             } catch (Exception e) {
             }
         }
-
-        Link();
 
 //以下、webViewに飛ぶようにするコード
         HandleableLinkMovementMethod linkMethod = new HandleableLinkMovementMethod();
