@@ -13,7 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.ScrollView;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -71,19 +71,7 @@ public class ItemDetailGourmetActivity extends Activity {
             String s02 = cs1.toString();
             String s03 = URLEncoder.encode(s02, "UTF-8");
             String s = s01 + s03;
-            /*Javaの変数のデータ型には参照型(配列型,クラス型,interface型)と基本(プリミティブ)型(byte，short，int，long，float， double，char，boolean)のデータがある。
-            基本データ型には変数に値そのものが格納される.
-            参照型の場合は、値の実体(インスタンス)が格納されているメモリー位置を指し示す（参照する）値が格納されてる
-            つまり、参照型変数にはデータそのものではなく、実データの格納先（参照先）を示す値が入っている
-            インスタンスを生成すると、インスタンスを操作するための「参照」というものも一緒についてくる。
-            逆に言えば、参照は「インスタンス」を作らないと取得することができない。
-　　　　　　　この参照を、参照型変数に代入する。これによって参照型変数はインスタンスを操作できる。
-            結局、クラスを使うためには「インスタンス」というものを作る必要がある。
-            参照型にnullを代入すると、参照型の変数は何もオブジェクトを参照していない事を示す、つまり変数は「何も指していない」値に初期化されている。
-            初期値が代入されていないという事は、null値も代入されていない。一点、「未定義値」と「null値」は異なる。
-            「コンパイルエラー」と「実行時エラー」も異なるものである。
 
-            */
 //URL で指定されたコンテンツを HTTP で取得する大まかな流れは以下
             URL url ;                                          //クラスの参照型変数の宣言
             url = new URL(String.valueOf(s));                  //クラスのインスタンスを生成し、その参照を参照型変数に入れる。URL オブジェクトを生成する。
@@ -110,57 +98,57 @@ public class ItemDetailGourmetActivity extends Activity {
             String src2 =  src.substring(index1 + 13);
             int index2 = src2.indexOf("</title>");
             src3 =  src2.substring(0, index2);
+            //src3 = src;
 
-
-            int indexurl1 = src.indexOf("&amp;url=");
-            String srcurl2 =  src.substring(indexurl1 + 9);
-            int indexurl2 = srcurl2.indexOf("</link>");
+            int indexurl1 = src.indexOf("2005:cluster=");
+            String srcurl2 =  src.substring(indexurl1 + 13);
+            int indexurl2 = srcurl2.indexOf("</guid>");
             srcurl3 =  srcurl2.substring(0, indexurl2);
 
-            int index3 = src.indexOf(String.valueOf(src3));
-            String src4 =  src.substring(index3 + 100);
-            int index4 = src4.indexOf("<item><title>");
-            String src5 =  src4.substring(index4 + 13);
+      //      int index3 = src.indexOf(String.valueOf(src3));
+      //      String src4 =  src.substring(index3 + 100);
+            int index4 = src2.indexOf("<item><title>");
+            String src5 =  src2.substring(index4 + 13);
             int index5 = src5.indexOf("</title>");
             src6 =  src5.substring(0, index5);
 
 
-            int indexurl3 = src.indexOf(String.valueOf(srcurl3));
-            String srcurl4 =  src.substring(indexurl3 + 100);
-            int indexurl4 = srcurl4.indexOf("&amp;url=");
-            String srcurl5 =  srcurl4.substring(indexurl4 + 9);
+       //     int indexurl3 = src.indexOf(String.valueOf(srcurl3));
+       //     String srcurl4 =  src.substring(indexurl3 + 100);
+            int indexurl4 = srcurl2.indexOf("&amp;url=");
+            String srcurl5 =  srcurl2.substring(indexurl4 + 9);
             int indexurl5 = srcurl5.indexOf("</link>");
             srcurl6 =  srcurl5.substring(0, indexurl5);
 
-            int index6 = src.indexOf(String.valueOf(src6));
-            String src7 =  src.substring(index6 + 100);
-            int index7 = src7.indexOf("<item><title>");
-            String src8 =  src7.substring(index7 + 13);
+         //   int index6 = src.indexOf(String.valueOf(src6));
+         //   String src7 =  src.substring(index6 + 100);
+            int index7 = src5.indexOf("<item><title>");
+            String src8 =  src5.substring(index7 + 13);
             int index8 = src8.indexOf("</title>");
             src9 =  src8.substring(0, index8);
 
-            int indexurl6 = src.indexOf(String.valueOf(srcurl6));
-            String srcurl7 =  src.substring(indexurl6 + 100);
-            int indexurl7 = srcurl7.indexOf("&amp;url=");
-            String srcurl8 =  srcurl7.substring(indexurl7 + 9);
+      //      int indexurl6 = src.indexOf(String.valueOf(srcurl6));
+      //      String srcurl7 =  src.substring(indexurl6 + 100);
+            int indexurl7 = srcurl5.indexOf("&amp;url=");
+            String srcurl8 =  srcurl5.substring(indexurl7 + 9);
             int indexurl8 = srcurl8.indexOf("</link>");
             srcurl9 =  srcurl8.substring(0, indexurl8);
 
-            int index9 = src.indexOf(String.valueOf(src9));
-            String src10 =  src.substring(index9 + 100);
-            int index10 = src10.indexOf("<item><title>");
-            String src11 =  src10.substring(index10 + 13);
+     //       int index9 = src.indexOf(String.valueOf(src9));
+     //       String src10 =  src.substring(index9 + 100);
+            int index10 = src8.indexOf("<item><title>");
+            String src11 =  src8.substring(index10 + 13);
             int index11 = src11.indexOf("</title>");
             src12 =  src11.substring(0, index11);
 
-            int indexurl9 = src.indexOf(String.valueOf(srcurl9));
-            String srcurl10 =  src.substring(indexurl9 + 100);
-            int indexurl10 = srcurl10.indexOf("&amp;url=");
-            String srcurl11 =  srcurl10.substring(indexurl10 + 9);
+         //   int indexurl9 = src.indexOf(String.valueOf(srcurl9));
+         //   String srcurl10 =  src.substring(indexurl9 + 100);
+            int indexurl10 = srcurl8.indexOf("&amp;url=");
+            String srcurl11 =  srcurl8.substring(indexurl10 + 9);
             int indexurl11 = srcurl11.indexOf("</link>");
             srcurl12 =  srcurl11.substring(0, indexurl11);
 
-            Link();
+          //  Link();
 
         } catch (Exception e) {
             web.setText(e.toString());
@@ -174,7 +162,7 @@ public class ItemDetailGourmetActivity extends Activity {
             }
         }
 
-
+        Link();
 
 //以下、webViewに飛ぶようにするコード
         HandleableLinkMovementMethod linkMethod = new HandleableLinkMovementMethod();
@@ -204,17 +192,12 @@ public class ItemDetailGourmetActivity extends Activity {
     }
 
 
-
-
-    //関連記事×3作成開始
     //特定の文字列にリンクを付ける、開始
     public void Link(){
         int i ;
         for(i=0 ; i<4 ;i++) {
-            String detail = "item_detail_url";
             int num = i + 2;
-            String number = String.valueOf(num);
-            String detailtag = detail + number;
+            String detailtag = "item_detail_url" + num;
             mURL = (TextView) findViewById(getResources().getIdentifier(detailtag, "id", getPackageName()));
             if(i == 0){
                 SRC = src3;
@@ -241,7 +224,8 @@ public class ItemDetailGourmetActivity extends Activity {
                     return strUrl;
                 }
             };
-            Linkify.addLinks(mURL, pattern, strUrl, null, filter);
+            Linkify.addLinks(mURL,pattern, strUrl, null, filter);//LinkifyクラスのaddLinksメソッドを用いて、TextViewにリンクを作成
+            // (リンクにしたいTextView,リンクにしたい文字列,遷移させたいwebサイトのURL,Linkify.MatchFilterクラスのインスタンス,Linkify.TransformFilterクラスのインスタンス)
         }
     }
 }

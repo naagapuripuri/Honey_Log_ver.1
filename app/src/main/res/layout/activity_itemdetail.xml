@@ -6,6 +6,9 @@
     android:layout_height="wrap_content"
     android:id="@+id/Llayout">
 
+
+
+
     <TextView
         android:id="@+id/item_detail_title"
         android:layout_width="fill_parent"
@@ -24,6 +27,8 @@
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal"
         android:textSize="30px" />
+
+
 
     <TextView
         android:id="@+id/item_detail_url2"
@@ -45,6 +50,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="30px" />
+
 
     <ImageView
         android:layout_width="match_parent"
