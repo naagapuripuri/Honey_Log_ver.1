@@ -89,7 +89,7 @@ public class ItemDetailGourmetActivity extends Activity {
 
 
 
-            // HTMLソースの中からタイトル・URLをピックアップしていく
+            // ★★★HTMLソースの中からタイトル・URLをピックアップしていく
             int index1 = src.indexOf("<item><title>");
             String src2 =  src.substring(index1 + 13);
             int index2 = src2.indexOf("</title>");
@@ -186,7 +186,7 @@ public class ItemDetailGourmetActivity extends Activity {
     }
 
 
-    //特定の文字列にリンクを付ける、開始
+    //★★★特定の文字列にリンクを付ける、開始
     public void Link(){
         int i ;
         for(i=0 ; i<4 ;i++) {
