@@ -47,7 +47,7 @@ public class RSSListGourmetAdapter extends ArrayAdapter<Item> {
             mDescr.setText(descr);//変数descrを、mDescrオブジェクトのsetTextメソッドに渡して何かしらの結果を返す
             mDescr.setVisibility(View.GONE);
             String pubdate = item.getPubDate().toString();
-            pubdate = pubdate.replaceAll("0900", "");
+            pubdate = pubdate.replaceAll("\\+0900", "");
             mPubDate = (TextView) view.findViewById(R.id.item_pubdate);
             mPubDate.setText(pubdate);
             mPubDate.setTextSize(8);

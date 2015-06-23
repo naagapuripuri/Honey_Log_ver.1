@@ -21,6 +21,11 @@ import java.net.URLEncoder;
 import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import android.util.Log;
+import org.xmlpull.v1.XmlPullParser;
+import java.io.InputStream;
+import java.net.URLConnection;
+import android.util.Xml;
 
 public class ItemDetailGourmetActivity extends Activity {
     private TextView mTitle;
@@ -38,11 +43,16 @@ public class ItemDetailGourmetActivity extends Activity {
     private CharSequence cs1;
     private String SRC;
     private String SRCURL;
+    private String target;
+    private String ss;
+    private String ss3;
+    private String ss4[] = new String[4];
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itemdetail);
 
+        System.out.println("標準出力です。");
         //受け取り側のActivityは設定されてるkey(ここではTITLE)で値を取り出す
         Intent intent = getIntent();
         String title = intent.getStringExtra("TITLE");
@@ -85,6 +95,47 @@ public class ItemDetailGourmetActivity extends Activity {
                     break;
                 src += new String(line);
             }
+            target = src;
+            for(int j=0 ; j<4;j++) {
+               // String target = "[INFO] 2009-10-30 22:01:52 HOGEHOGEHOGE";
+                String regex = "<item><title>(.*?)</title>";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(target);
+                if (matcher.find()) {
+                    ss = matcher.group();
+                } else {
+                    throw new IllegalStateException("No match found.");
+                }
+                int index01 = ss.indexOf("<item><title>");
+                String ss2 =  ss.substring(index01 + 13);
+                int index02 = ss2.indexOf("</title>");
+                ss4[j] =  ss2.substring(0, index02);
+
+                System.out.println("Result: " + ss4[j]);
+                int index = target.indexOf("<item><title>");
+                target =  target.substring(index + 13);;
+            }
+
+
+
+            try{
+                XmlPullParser xmlPullParser = Xml.newPullParser();
+
+                URL Url = new URL("http://techbooster.jpn.org/?feed=rss2");
+                URLConnection connection = Url.openConnection();
+                xmlPullParser.setInput(connection.getInputStream(), "UTF-8");
+
+                int eventType;
+                while ((eventType = xmlPullParser.next()) != XmlPullParser.END_DOCUMENT) {
+                    if (eventType == XmlPullParser.START_TAG && "title".equals(xmlPullParser.getName())) {
+                        Log.d("XmlPullParserSampleUrl", xmlPullParser.nextText());
+                    }
+                }
+            } catch (Exception e){
+                Log.d("XmlPullParserSampleUrl", "Error");
+            }
+
+
 
 
 
@@ -94,12 +145,15 @@ public class ItemDetailGourmetActivity extends Activity {
             String src2 =  src.substring(index1 + 13);
             int index2 = src2.indexOf("</title>");
             src3 =  src2.substring(0, index2);
+            System.out.println("src3だお");
+            System.out.println(String.valueOf(src3));
             //src3 = src;
 
             int indexurl1 = src.indexOf("2005:cluster=");
             String srcurl2 =  src.substring(indexurl1 + 13);
             int indexurl2 = srcurl2.indexOf("</guid>");
             srcurl3 =  srcurl2.substring(0, indexurl2);
+            System.out.println(String.valueOf(srcurl3));
 
       //      int index3 = src.indexOf(String.valueOf(src3));
       //      String src4 =  src.substring(index3 + 100);
@@ -107,6 +161,8 @@ public class ItemDetailGourmetActivity extends Activity {
             String src5 =  src2.substring(index4 + 13);
             int index5 = src5.indexOf("</title>");
             src6 =  src5.substring(0, index5);
+            System.out.println("src6だお");
+            System.out.println(String.valueOf(src6));
 
 
        //     int indexurl3 = src.indexOf(String.valueOf(srcurl3));
@@ -115,6 +171,7 @@ public class ItemDetailGourmetActivity extends Activity {
             String srcurl5 =  srcurl2.substring(indexurl4 + 9);
             int indexurl5 = srcurl5.indexOf("</link>");
             srcurl6 =  srcurl5.substring(0, indexurl5);
+            System.out.println(String.valueOf(srcurl6));
 
          //   int index6 = src.indexOf(String.valueOf(src6));
          //   String src7 =  src.substring(index6 + 100);
@@ -122,6 +179,8 @@ public class ItemDetailGourmetActivity extends Activity {
             String src8 =  src5.substring(index7 + 13);
             int index8 = src8.indexOf("</title>");
             src9 =  src8.substring(0, index8);
+            System.out.println("src9だお");
+            System.out.println(String.valueOf(src9));
 
       //      int indexurl6 = src.indexOf(String.valueOf(srcurl6));
       //      String srcurl7 =  src.substring(indexurl6 + 100);
@@ -129,6 +188,7 @@ public class ItemDetailGourmetActivity extends Activity {
             String srcurl8 =  srcurl5.substring(indexurl7 + 9);
             int indexurl8 = srcurl8.indexOf("</link>");
             srcurl9 =  srcurl8.substring(0, indexurl8);
+            System.out.println(String.valueOf(srcurl9));
 
      //       int index9 = src.indexOf(String.valueOf(src9));
      //       String src10 =  src.substring(index9 + 100);
@@ -136,6 +196,8 @@ public class ItemDetailGourmetActivity extends Activity {
             String src11 =  src8.substring(index10 + 13);
             int index11 = src11.indexOf("</title>");
             src12 =  src11.substring(0, index11);
+            System.out.println("src12だお");
+            System.out.println(String.valueOf(src12));
 
          //   int indexurl9 = src.indexOf(String.valueOf(srcurl9));
          //   String srcurl10 =  src.substring(indexurl9 + 100);
@@ -143,6 +205,7 @@ public class ItemDetailGourmetActivity extends Activity {
             String srcurl11 =  srcurl8.substring(indexurl10 + 9);
             int indexurl11 = srcurl11.indexOf("</link>");
             srcurl12 =  srcurl11.substring(0, indexurl11);
+            System.out.println(String.valueOf(srcurl12));
 
             Link();
 
@@ -196,19 +259,16 @@ public class ItemDetailGourmetActivity extends Activity {
             if(i == 0){
                 SRC = src3;
                 SRCURL = srcurl3;
-            };
-            if(i == 1){
+            }else if(i == 1){
                 SRC = src6;
                 SRCURL = srcurl6;
-            };
-            if(i == 2){
+            }else if(i == 2){
                 SRC = src9;
                 SRCURL = srcurl9;
-            };
-            if(i == 3){
+            }else if(i == 3){
                 SRC = src12;
                 SRCURL = srcurl12;
-            };
+            }
             mURL.setText(SRC);
             Pattern pattern = Pattern.compile(SRC);
             final String strUrl = SRCURL;
