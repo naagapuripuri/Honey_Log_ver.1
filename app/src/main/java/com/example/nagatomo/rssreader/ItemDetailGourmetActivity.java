@@ -121,7 +121,8 @@ public class ItemDetailGourmetActivity extends Activity {
             try{
                 XmlPullParser xmlPullParser = Xml.newPullParser();
 
-                URL Url = new URL("http://techbooster.jpn.org/?feed=rss2");
+              //  URL Url = new URL("http://techbooster.jpn.org/?feed=rss2");
+                URL Url = new URL(String.valueOf(s));
                 URLConnection connection = Url.openConnection();
                 xmlPullParser.setInput(connection.getInputStream(), "UTF-8");
 
