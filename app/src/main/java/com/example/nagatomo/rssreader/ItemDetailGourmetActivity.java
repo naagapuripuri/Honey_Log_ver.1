@@ -47,6 +47,8 @@ public class ItemDetailGourmetActivity extends Activity {
     private String ss;
     private String ss3;
     private String ss4[] = new String[4];
+    private String tagurl[] = new String[20];
+    private int count = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,9 +129,11 @@ public class ItemDetailGourmetActivity extends Activity {
                 xmlPullParser.setInput(connection.getInputStream(), "UTF-8");
 
                 int eventType;
+
                 while ((eventType = xmlPullParser.next()) != XmlPullParser.END_DOCUMENT) {
                     String tag = null;
                     String tag2 = null;
+
                     if (eventType == XmlPullParser.START_TAG) {
                         tag = xmlPullParser.getName();;
                         if("guid".equals(tag)){
@@ -139,15 +143,22 @@ public class ItemDetailGourmetActivity extends Activity {
                             // CharSequence xmls = xmlPullParser.nextText();
                             // String xmls2 = xmls.toString();
                              System.out.println(tag2);
+                             tagurl[count] = tag2;
+                           // System.out.println(tagurl[count]);
+                            count = count +1;
+
                         }
                     }
+
                 }
             } catch (Exception e){
                 Log.d("XmlPullParserSampleUrl", "Error");
             }
 
 
-
+            for(int l=0;l<4;l++){
+                System.out.println(tagurl[l]);
+            }
 
 
 
