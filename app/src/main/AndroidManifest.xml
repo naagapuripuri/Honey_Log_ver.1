@@ -46,7 +46,12 @@
         <activity
             android:name=".ItemDetailGourmetActivity">
         </activity>
-
+        <activity
+            android:name=".RSSReaderMovieActivity">
+        </activity>
+        <activity
+            android:name=".ItemDetailMovieActivity">
+        </activity>
 
 
     </application>

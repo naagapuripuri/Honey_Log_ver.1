@@ -133,6 +133,12 @@ public class RSSReaderActivity extends ListActivity {
                 // SplashActivityを終了する
                 RSSReaderActivity.this.finish();
             }
+            else if(which == 5){
+                Intent intent = new Intent(getApplicationContext(), RSSReaderMovieActivity.class);
+                startActivity(intent);
+                // SplashActivityを終了する
+                RSSReaderActivity.this.finish();
+            }
             else if(which == 6){
                 Intent intent = new Intent(getApplicationContext(), RSSReaderGourmetActivity.class);
                 startActivity(intent);
