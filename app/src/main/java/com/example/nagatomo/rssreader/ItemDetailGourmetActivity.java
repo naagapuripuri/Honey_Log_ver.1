@@ -128,8 +128,18 @@ public class ItemDetailGourmetActivity extends Activity {
 
                 int eventType;
                 while ((eventType = xmlPullParser.next()) != XmlPullParser.END_DOCUMENT) {
-                    if (eventType == XmlPullParser.START_TAG && "title".equals(xmlPullParser.getName())) {
-                        Log.d("XmlPullParserSampleUrl", xmlPullParser.nextText());
+                    String tag = null;
+                    String tag2 = null;
+                    if (eventType == XmlPullParser.START_TAG) {
+                        tag = xmlPullParser.getName();;
+                        if("guid".equals(tag)){
+                            tag2 = xmlPullParser.nextText();
+                            Log.d("XmlPullParserSampleUrl", tag2);
+
+                            // CharSequence xmls = xmlPullParser.nextText();
+                            // String xmls2 = xmls.toString();
+                             System.out.println(tag2);
+                        }
                     }
                 }
             } catch (Exception e){
