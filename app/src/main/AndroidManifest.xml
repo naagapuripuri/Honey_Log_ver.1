@@ -52,7 +52,12 @@
         <activity
             android:name=".ItemDetailMovieActivity">
         </activity>
-
+        <activity
+            android:name=".RSSReaderSportActivity">
+        </activity>
+        <activity
+            android:name=".ItemDetailSportActivity">
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
