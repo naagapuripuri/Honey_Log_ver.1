@@ -15,18 +15,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import org.xmlpull.v1.XmlPullParser;
-
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Nagatomo on 2015/06/24.
- */
 public class ItemDetailSportActivity extends Activity {
     private TextView mTitle;
     private TextView mDescr;
