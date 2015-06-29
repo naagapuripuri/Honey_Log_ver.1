@@ -24,8 +24,6 @@ public class RSSReaderActivity extends ListActivity {
     public static final int MENU_ITEM_RELOAD = Menu.FIRST;
     private RSSListAdapter mAdapter;
     private ArrayList<Item> mItems;
-    private String[] mStrings = { "test1", "test2", "test3", "test4" };
-    private Spinner spinner2;
     protected AlertDialog alertDialog;
     protected Button spinnerButton;
     protected ArrayAdapter<String> adapter;
